@@ -1,23 +1,13 @@
-pipeline {
-    agent any
+stage('Push to DockerHub') {
+    steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'dockerhub-creds',
+            usernameVariable: 'USER',
+            passwordVariable: 'PASS')]) {
 
-    stages {
-        stage('Clone') {
-            steps {
-                echo 'Cloning successful'
-            }
-        }
-
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t myapp .'
-            }
-        }
-
-        stage('Run Container') {
-            steps {
-                sh 'docker run -d -p 80:80 myapp'
-            }
+            sh 'echo $PASS | docker login -u $USER --password-stdin'
+            sh 'docker tag myapp $USER/myapp:latest'
+            sh 'docker push $USER/myapp:latest'
         }
     }
 }
