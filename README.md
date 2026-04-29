@@ -1,17 +1,24 @@
-PROJECT OVER VIEW
-  This project demonstrates deployment of an application using AWS Codepipeline , Codebuild and Kubernets (EKS)
+# Deployment
 
-TOOLS
-  AWS codepipeline
-  AWS Codebuild
-  Kubernets
-  Docker 
-  GitHub
+## Repo
 
-PIPE LINE FLOW
-  GitHub and jenkins , Docker , kubernets
 
-SCREENSHOTS
-  Application running 
-  CodeBuild 
-  Codepipeline
+
+## Docker
+
+docker build -t trend-app .
+docker run -p 3000:3000 trend-app
+
+## Terraform
+
+terraform init
+terraform apply
+
+## Kubernetes
+
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+
+## Jenkins
+
+CI/CD used
